@@ -8,7 +8,7 @@ navbar:
     - text: "Exploratory Analysis"
       href: exploratory_analysis.html
     - text: "Model Fitting"
-      href: Model_fitting.html
+      href: model_fitting.html
     - text: "Project Report"
       href: project_report.html
     - text: "about us"
