@@ -1,0 +1,59 @@
+---
+title: "data import"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+---
+
+```{r include=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(wordcloud2)
+library(plotly)
+library(glmnet)
+library(caret)
+library(ROCR)
+```
+
+## Data import and cleaning
+
+*Data source* 
+
+We found a [Steam Game Dataset](https://www.kaggle.com/datasets/fronkongames/steam-games-dataset) from Kaggle. It uses gather information from Steam API. 
+
+```{r}
+df = read.csv("DATA/games.csv")|>
+  janitor::clean_names()
+```
+
+In the process of preparing our data for analysis, we have established a set of inclusion and variable selection criteria to ensure the relevance of our study. These criteria are vital to the successful execution of our data science investigation.
+
+```{r}
+df = df|> subset(price > 0)
+```
+
+One of the primary inclusion criteria for our analysis is the exclusion of free games from our dataset. This decision is underpinned by the understanding that in free-to-play games, in-app purchases often serve as viable alternatives to traditional game sales. However, due to the unavailability of comprehensive data pertaining to these in-app purchases, their inclusion in our analysis would be both impractical and imprecise.
+
+```{r}
+df = df|>
+  subset(select = -c(dlc_count, about_the_game, reviews, header_image, website, support_url, support_email, metacritic_score, metacritic_url, notes, developers, publishers, screenshots, movies, score_rank, average_playtime_two_weeks, median_playtime_two_weeks, average_playtime_forever, peak_ccu, full_audio_languages))
+  
+```
+
+In addition, we have also opted to remove certain variables from our dataset that are non-essential for our analysis:
+
+We eliminate columns containing URLs as they do not contribute meaningful information to our analytical objectives.
+
+Variables associated with game developers and publishers will be filtered out for two primary reasons. Firstly, we posit that making predictions or quantify the effect of developer names may be challenging, if not unfeasible. Secondly, we hypothesize that brand effects can be more accurately captured through a combination of game features and keywords, for example, there is a tag for independent games, which is the complement of games made by large companies. 
+
+Furthermore, we will exclude the variables "Playtime in Current Two Weeks" as it may not be representative for older games, and "Average Playtime Forever" in favor of "Median Playtime Forever" due to potential distortions caused by AFK (Away From Keyboard) gamers. 
+
+It is worth noting that we are cognizant of the need to address potential data leakage issues and redundant feature when fitting our model. These aspects will be thoroughly addressed in subsequent stages of our analysis to ensure the robustness of our findings.
+
+```{r}
+#Change the format of release date. 
+df = df|>
+  mutate(release_date = as.Date(release_date, format = "%b %d, %Y"))
+```
