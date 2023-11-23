@@ -6,6 +6,8 @@ output:
     toc_float: true
 ---
 
+<img src="steam_logo_wallpaper.jpg">
+
 ## Project motivation 
 
 Amidst the burgeoning gaming industry, popular belief posits genres such as shooters, sports, and racing as perennial favorites. As gamers, our team believes that there is a “success formula” to guarantee the success of video games. Our team’s avid gaming experience through STEAM has piqued our interest in this hypothesis. Our objective is to dissect and analyze the veracity of such claims and identify any characteristics that signal the popularity of STEAM games.
@@ -17,3 +19,4 @@ Amidst the burgeoning gaming industry, popular belief posits genres such as shoo
 
 -Yuxuan Du yd2739
 
+wallpaper by: https://www.reddit.com/r/pcgaming/comments/26yn8m/steam_wallpaper_xpost_from_rwallpaper/
