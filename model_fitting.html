@@ -546,12 +546,10 @@ lambda_opt = lasso_cv$lambda.min</code></pre>
   geom_path() + 
   geom_vline(xintercept = log(lambda_opt, 10), color = &quot;blue&quot;, size = 1.2) +
   theme(legend.position = &quot;none&quot;)</code></pre>
-<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in
-## ggplot2 3.4.0.
+<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 ## ℹ Please use `linewidth` instead.
 ## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see
-## where this warning was generated.</code></pre>
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</code></pre>
 <p><img src="model_fitting_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>This plot shows the best selection of lambda.</p>
 <pre class="r"><code>result = predict(lasso_fit, s = lambda_opt, newx = as.matrix(test_x), type = &#39;response&#39;)</code></pre>
@@ -575,26 +573,26 @@ confusionMatrix(data=pull(result, prediction), reference = pull(result, actual))
 ## 
 ##           Reference
 ## Prediction     1     0
-##          1   569   323
-##          0  1046 17051
+##          1   578   295
+##          0  1092 17024
 ##                                           
-##                Accuracy : 0.9279          
-##                  95% CI : (0.9241, 0.9315)
-##     No Information Rate : 0.915           
-##     P-Value [Acc &gt; NIR] : 3.075e-11       
+##                Accuracy : 0.927           
+##                  95% CI : (0.9232, 0.9306)
+##     No Information Rate : 0.9121          
+##     P-Value [Acc &gt; NIR] : 5.264e-14       
 ##                                           
-##                   Kappa : 0.4188          
+##                   Kappa : 0.4195          
 ##                                           
 ##  Mcnemar&#39;s Test P-Value : &lt; 2.2e-16       
 ##                                           
-##             Sensitivity : 0.35232         
-##             Specificity : 0.98141         
-##          Pos Pred Value : 0.63789         
-##          Neg Pred Value : 0.94220         
-##              Prevalence : 0.08505         
-##          Detection Rate : 0.02996         
-##    Detection Prevalence : 0.04697         
-##       Balanced Accuracy : 0.66687         
+##             Sensitivity : 0.34611         
+##             Specificity : 0.98297         
+##          Pos Pred Value : 0.66208         
+##          Neg Pred Value : 0.93972         
+##              Prevalence : 0.08795         
+##          Detection Rate : 0.03044         
+##    Detection Prevalence : 0.04597         
+##       Balanced Accuracy : 0.66454         
 ##                                           
 ##        &#39;Positive&#39; Class : 1               
 ## </code></pre>

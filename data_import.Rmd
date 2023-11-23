@@ -42,6 +42,11 @@ df = df|>
   
 ```
 
+```{r}
+#Change the format of release date. 
+df = df|>
+  mutate(release_date = as.Date(release_date, format = "%b %d, %Y"))
+```
 In addition, we have also opted to remove certain variables from our dataset that are non-essential for our analysis:
 
 We eliminate columns containing URLs as they do not contribute meaningful information to our analytical objectives.
@@ -52,8 +57,4 @@ Furthermore, we will exclude the variables "Playtime in Current Two Weeks" as it
 
 It is worth noting that we are cognizant of the need to address potential data leakage issues and redundant feature when fitting our model. These aspects will be thoroughly addressed in subsequent stages of our analysis to ensure the robustness of our findings.
 
-```{r}
-#Change the format of release date. 
-df = df|>
-  mutate(release_date = as.Date(release_date, format = "%b %d, %Y"))
-```
+

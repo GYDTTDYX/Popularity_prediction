@@ -403,6 +403,9 @@ purchases, their inclusion in our analysis would be both impractical and
 imprecise.</p>
 <pre class="r"><code>df = df|&gt;
   subset(select = -c(dlc_count, about_the_game, reviews, header_image, website, support_url, support_email, metacritic_score, metacritic_url, notes, developers, publishers, screenshots, movies, score_rank, average_playtime_two_weeks, median_playtime_two_weeks, average_playtime_forever, peak_ccu, full_audio_languages))</code></pre>
+<pre class="r"><code>#Change the format of release date. 
+df = df|&gt;
+  mutate(release_date = as.Date(release_date, format = &quot;%b %d, %Y&quot;))</code></pre>
 <p>In addition, we have also opted to remove certain variables from our
 dataset that are non-essential for our analysis:</p>
 <p>We eliminate columns containing URLs as they do not contribute
@@ -422,9 +425,6 @@ distortions caused by AFK (Away From Keyboard) gamers.</p>
 potential data leakage issues and redundant feature when fitting our
 model. These aspects will be thoroughly addressed in subsequent stages
 of our analysis to ensure the robustness of our findings.</p>
-<pre class="r"><code>#Change the format of release date. 
-df = df|&gt;
-  mutate(release_date = as.Date(release_date, format = &quot;%b %d, %Y&quot;))</code></pre>
 </div>
 
 

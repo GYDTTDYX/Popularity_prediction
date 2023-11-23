@@ -29,16 +29,6 @@ df = df|>
 ```
 
 ### definition of popular games
-In our project, the exploration of key features of popular games forms a central objective. To establish a precise definition of "popular games" in the context of our analysis, we will primarily adhere to the standard set by Steam, a prominent gaming platform[https://www.reddit.com/r/Steam/comments/ivz45n/what_does_the_steam_ratings_like_very_negative_or/]
-According to Steam's rating system, we will categorize games as "popular" if they fall into the following rating categories: mostly positive, positive, very positive, overwhelmingly positive. This approach ensures that we consider user sentiment as a crucial aspect of popularity.
-
-However, we recognize that popularity encompasses more than just ratings; it also pertains to the volume of users who purchase and engage with a game. To account for this broader perspective of popularity, we have incorporated the following criteria:
-
-*Estimated Owners*: We will exclude games with an estimated owner count in the range of 0-0 and 0-20,000. This criteria ensures that we focus on games with a substantial user base.
-
-*Median Playtime*: Games selected for analysis will have a median playtime exceeding 120 minutes. This threshold corresponds to the latest time frame within which Steam allows game refunds. This criterion further refines our definition of popular games by considering active engagement and retention, which are indicative of a game's enduring appeal.
-
-By combining these rating, ownership, and playtime criteria, we aim to create a comprehensive definition of "popular games" that accounts for both user sentiment and the size of the player base, enabling us to explore key features that contribute to a game's popularity in a holistic manner.
 
 ```{r}
 df_popular = df|>
@@ -51,9 +41,26 @@ df_popular = df|>
 df_unpopular = anti_join(df, df_popular, by="app_id")
 ```
 
+In our project, the exploration of key features of popular games forms a central objective. To establish a precise definition of "popular games" in the context of our analysis, we will primarily adhere to the standard set by Steam, a prominent gaming platform[https://www.reddit.com/r/Steam/comments/ivz45n/what_does_the_steam_ratings_like_very_negative_or/]
+According to Steam's rating system, we will categorize games as "popular" if they fall into the following rating categories: mostly positive, positive, very positive, overwhelmingly positive. This approach ensures that we consider user sentiment as a crucial aspect of popularity.
+
+However, we recognize that popularity encompasses more than just ratings; it also pertains to the volume of users who purchase and engage with a game. To account for this broader perspective of popularity, we have incorporated the following criteria:
+
+*Estimated Owners*: We will exclude games with an estimated owner count in the range of 0-0 and 0-20,000. This criteria ensures that we focus on games with a substantial user base.
+
+*Median Playtime*: Games selected for analysis will have a median playtime exceeding 120 minutes. This threshold corresponds to the latest time frame within which Steam allows game refunds. This criterion further refines our definition of popular games by considering active engagement and retention, which are indicative of a game's enduring appeal.
+
+By combining these rating, ownership, and playtime criteria, we aim to create a comprehensive definition of "popular games" that accounts for both user sentiment and the size of the player base, enabling us to explore key features that contribute to a game's popularity in a holistic manner.
+
 ### price distribution of popular and unpopular games
+
+*Price summary for popular games*
 ```{r}
 summary(pull(df_popular, price))
+```
+
+*Price summary for unpopular games*
+```{r}
 summary(pull(df_unpopular, price))
 ```
 
@@ -80,7 +87,7 @@ ggplot(data = combined_data, aes(x = price, fill = dataset)) +
 
 ```
 
-The two distribution loos approximately normal, so we decide to use T-test to test whether two groups's log transformed price have similar distribution.
+The two distribution looks approximately normal, so we decide to use T-test to test whether two groups's log transformed price have similar distribution.
 
 H0: they have same mean price
 H1: they have different mean price
@@ -238,18 +245,23 @@ unpopular_tags_wordcloud = df_unpopular|>
   wordcloud2()
 ```
 
+overwhelm popular games' wordcloud
 ```{r}
 overwhelm_popular_wordcloud
+```
+
+popular games' wordcloud
+```{r}
 popular_tags_wordcloud
+```
+
+unpopular games' wordcloud
+```{r}
 unpopular_tags_wordcloud
 ```
 
 The distinctions revealed among the three word clouds are insightful and provide valuable context for understanding the characteristics that differentiate popular and unpopular games:
 
-*Prevalence of Adventure Games in Unpopular Games*: Adventure games appear to be more prevalent among unpopular games and are less common in popular games. This discrepancy may stem from the accessibility of game development tools like RPG Maker, which enables the creation of adventure games with relative ease. Consequently, the market may be flooded with a range of adventure games of varying quality, leading to their uneven representation among unpopular titles.
-
 *Emphasis on Difficulty in Popular Games*: The word cloud for popular games prominently features the tag "difficult." This aligns with the reality that some of the most highly regarded games in the industry, such as Elden Ring and Sekiro: Shadows Die Twice, are renowned for their challenging gameplay. The presence of this tag underscores the appeal of a high level of difficulty in certain popular titles.
 
 *Ratio of 2D to 3D Games*: Notably, the word cloud suggests that the ratio of 2D games to 3D games is higher in popular games compared to unpopular ones. This observation may be attributed to resource constraints faced by smaller game development studios. In many cases, these studios may prioritize the development of engaging plotlines and intricate game mechanics over the creation of elaborate 3D environments, resulting in a higher prevalence of 2D games among popular titles.
-
-*Popularity of Pixel Graphics*: The higher frequency of the "pixel graphics" tag in popular games is an intriguing finding. Pixel graphics are favored by independent developers as they allow a strong focus on game mechanics. This aligns with the success stories of games like Terraria and Minecraft, which have leveraged pixel graphics to create immersive and engaging gameplay experiences. The appeal of pixel graphics in popular games reflects the importance of gameplay and mechanics in driving their popularity.
