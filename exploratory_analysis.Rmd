@@ -64,16 +64,15 @@ summary(pull(df_popular, price))
 summary(pull(df_unpopular, price))
 ```
 
-Based on tables, it is evident that popular games consistently exhibit higher prices when compared to their less popular counterparts across all quadrants. This trend can be logically attributed to several key factors that play a pivotal role in shaping the pricing dynamics within the gaming industry.
-Game 
+Based on tables, it is evident that popular games are more expensive than less popular games in every quantile. Such difference might caused by several reasons.
 
-*Mechanics*: Popular games often incorporate complex and engaging game mechanics that elevate the overall gaming experience. The development and refinement of such intricate mechanics requires investment in terms of design, testing, and optimization, all of which contribute to higher production costs and reflect on the final price.
+*Mechanics*: Popular games often have complex game mechanics that improve gaming experience. However, developing such mechanics requires time, which leads to higher production costs and reflect on the final price.
 
-*Animation Effects*: The visually captivating animation effects is a hallmark of popular games. These effects enhance immersion and player engagement, but their creation requires the expertise of skilled artists and animators, thereby increasing development expenses.
+*Animation Effects*: The captivating animation effects is a important component for good games. The creation requires hiring skilled artists, which will lead to increasing production cost
 
-*Game Optimization*: Popular games prioritize performance optimization to ensure smooth gameplay across a wide range of hardware configurations(although some popular games still have tons of bugs). Achieving such optimization demands rigorous coding and testing efforts, which in turn incur additional costs.
+*Game Optimization*: Popular games need to ensure smooth gameplay(although we have to admit some popular games still have tons of bugs). Optimization requires talented coder, which increase the production cost. 
 
-Also, we used statistical test to test whether there is difference in the two price distribution. 
+Then, we used statistical test to test whether there is difference in the two price distribution. 
 
 ```{r}
 df_unpopular = df_unpopular|>subset(name != "Ascent Free-Roaming VR Experience")
@@ -213,13 +212,13 @@ popular_genres_bar_plot
 
 We found some interesting trend from the line plot:
 
-*Rise of Indie Games*: A prominent observation is the surge in the frequency of the "Indie" genre, particularly after 2012. This phenomenon is likely attributable to the increase in the number of computers per person. These developments have made it easier for independent game developers to create and publish their games. 
+*Rise of Indie Games*: We notice that the genre "indie" increase in recent years, particularly after year 2012. This increase might caused by more accessible personal computer and no-code platform like RPG-maker, which made it easier for independent game developers to create their games. 
 
-*Shift in Genre Popularity*: The line plot also highlights a noteworthy trend in the Action genre. While it remains dominant, it has experienced a gradual decline in frequency over the years. This shift may be influenced by changing player preferences and the emergence of diverse gaming experiences in other genres. It suggests that players are increasingly seeking a wider variety of gaming experiences beyond traditional action games.
+*Shift in Genre Popularity*: The line plot also show a decrease frequency of Action games. Although we have to admit it is still one of the most frequent genere, it experienced a decline in recent years. This shift may be caused by changing in player preferences. Since most old games are action games, players might seek new genre when there are available ones. It suggests that players are increasingly seeking a wider variety of genre. 
 
-*Casual Games on the Rise*: The period from 2012 to 2023 shows an increase in the frequency of "Casual" games. This may be indicative of a growing market for games that offer accessible and relaxed gameplay experiences. This might also indecate people are craving for relaxation instead of stimulation.
+*Casual Games on the Rise*: We noticed there is an increase in the frequency of "Casual" games. This reveals that as the first generation that familiar with computer gradually enter job market, games that are relaxing are more preferable for them. 
 
-*Early Access Strategy*: The "Early Access" games on Steam experienced a notable increase in their frequency. This approach provides independent game developers with the opportunity to release their games in a partially completed state, allowing them to gather player feedback, iterate on their games, and secure investment more easily. The popularity of this strategy underscores its effectiveness in the independent game development ecosystem.
+*Early Access Strategy*: The "Early Access" games on Steam experienced a notable increase. This prosperous new business model in game area shows the potential of games. 
 
 ### Word Cloud visualization
 Wordcloud could help visualize the the frequency of keywords in different groups. Here, we separately create word cloud for popular and unpopular games. 
@@ -261,8 +260,8 @@ unpopular games' wordcloud
 unpopular_tags_wordcloud
 ```
 
-The distinctions revealed among the three word clouds are insightful and provide valuable context for understanding the characteristics that differentiate popular and unpopular games:
+We can observe differences among the three word clouds above.
 
-*Emphasis on Difficulty in Popular Games*: The word cloud for popular games prominently features the tag "difficult." This aligns with the reality that some of the most highly regarded games in the industry, such as Elden Ring and Sekiro: Shadows Die Twice, are renowned for their challenging gameplay. The presence of this tag underscores the appeal of a high level of difficulty in certain popular titles.
+We notice that the tag "difficult" appears more frequently in the word cloud for popular games. This aligns with reality, as some of the best games in history, such as Elden Ring and Sekiro: Shadows Die Twice, are known for their challenging gameplay.
 
-*Ratio of 2D to 3D Games*: Notably, the word cloud suggests that the ratio of 2D games to 3D games is higher in popular games compared to unpopular ones. This observation may be attributed to resource constraints faced by smaller game development studios. In many cases, these studios may prioritize the development of engaging plotlines and intricate game mechanics over the creation of elaborate 3D environments, resulting in a higher prevalence of 2D games among popular titles.
+An interesting observation is that the ratio of 2D games to 3D games is higher in popular games compared to unpopular ones. This is reasonable since plot and game mechanics often take precedence in game development. Small studios may struggle to allocate sufficient resources to create high-quality 3D environments, prompting them to opt for 2D games more frequently. This contributes to the higher frequency of 2D games in the popular category.

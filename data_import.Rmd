@@ -34,7 +34,7 @@ In the process of preparing our data for analysis, we have established a inclusi
 df = df|> subset(price > 0)
 ```
 
-Our analysis exclude free games from our dataset. This decision is because for free-to-play games, in-app purchases often serve as alternatives to game sales. However, due to the unavailability of such data, the inclusion in our analysis would make our analysis inapproprate. 
+Our analysis exclude free games since for free-to-play games, in-app purchases often serve as indecator of popularity. However, due to the unavailability of such data, the inclusion in our analysis would make our analysis inapproprate. 
 
 ```{r}
 df = df|>
@@ -47,12 +47,12 @@ df = df|>
 df = df|>
   mutate(release_date = as.Date(release_date, format = "%b %d, %Y"))
 ```
-In addition, we removed certain variables from our dataset that are non-essential for our analysis.
+In addition, we removed certain non-essential variables from our dataset.
 
-We eliminate columns containing URLs as they do not contribute meaningful information to our analytical objectives.
+We eliminate columns containing URLs as we cannot make analysis based on them.
 
-Variables associated with game developers and publishers will be filtered out for two primary reasons. Firstly, we posit that making predictions or quantify the effect of developer names may be challenging, if not unfeasible. Secondly, we hypothesize that brand effects can be more accurately captured through a combination of game features and keywords, for example, there is a tag for independent games, which is the complement of games made by large companies. 
+Variables associated with game developers and publishers will be filtered out for two primary reasons. Firstly, quantifying the effect of developer names may be challenging, if not impossible. Secondly, we hypothesize that brand effects can be captured using other keywords. (for example, there is a tag for independent games, which is the complement of games made by large companies.)
 
-Furthermore, we will exclude the variables "Playtime in Current Two Weeks" since it may not be representative for older games, and "Average Playtime Forever" in favor of "Median Playtime Forever" due to potential distortions caused by AFK (Away From Keyboard) gamers. 
+Furthermore, we will exclude the variables "Playtime in Current Two Weeks" since it may not be meaningful enough for older games, and "Average Playtime Forever" in favor of "Median Playtime Forever" due to potential distortions caused by AFK (Away From Keyboard) gamers. 
 
 To address potential data leakage issues, we will further select features in model fitting part. 

@@ -42,6 +42,8 @@ df_concat = df|>
   subset(select = -c(categories, genres, tags))
 ```
 
+Since it is hard for models to directly analyze keywords as string, we one-hot encoded categories, genres, and tags, which facilitate models to analyze the dataset. 
+
 ```{r}
 keywords_df = df_concat|>
   subset(select = c(app_id, keywords))|>
@@ -75,9 +77,7 @@ dataset_without_id_name = encoded_with_label_df|>
   drop_na()
 ```
 
-Since it is hard for models to directly analyze keywords as string, we one-hot encoded categories, genres, and tags, which facilitate models to analyze the dataset. 
-
-During our data preprocessing phase, we identified certain tags that had the potential to introduce data leakage into our dataset. These tags, listed below, were deemed inappropriate for inclusion due to their subjective and conclusive nature, making them difficult for a game producer to ascertain accurately: `Masterpiece`, `Great Soundtrack`, `Addictive`, `benchmark`, `classic`. By excluding these tags from our dataset, we could provide a model that help game makers to determine the game's potential popularity. 
+During our data preprocessing phase, we identified certain tags that had the potential to introduce data leakage into our dataset. These tags, are not accessible for game maker when they are making games: `Masterpiece`, `Great Soundtrack`, `Addictive`, `benchmark`, `classic`.  
 
 ### feature selection
 
@@ -211,15 +211,11 @@ result = result|>
 confusionMatrix(data=pull(result, prediction), reference = pull(result, actual))
 ```
 
-Upon examining the confusion matrix, it becomes evident that our model struggles to correctly classify a substantial number of popular games. However, a noteworthy observation is that the rate of false positives is within an acceptable range. This observation suggests that there may be discernible patterns among unpopular games that our model can capture effectively. As a result, this model holds promise in providing valuable insights for identifying games that are less likely to achieve popularity.
-
-Furthermore, our analysis reveals that the model's performance, as indicated by the p-value, is statistically significant compared to the scenario of having no information. This suggests that our model does contain valuable information that contributes to its predictive capabilities. The significance of the p-value underscores the utility of the model in making informed predictions and decisions.
-
-It is important to note that the model's sensitivity, particularly in recognizing popular games, is relatively low. One plausible explanation for this discrepancy in sensitivity may stem from the imbalanced ratio of popular games to unpopular games within the dataset. The skewed distribution of popular and unpopular games can pose challenges for the model in learning generalized patterns for popular games, leading to reduced sensitivity. It might be useful to perform a down-sampling, but it is unsure whether such down-sampling will cause information loss. 
+From the confusion matrix, we could see that our model didn't recognize lots of popular games. However, the amount of false positives is acceptable, this indicates that there might be patterns for unpopular games, using such model we might get some meaningful insight that can help us to identify those games that will not be popular. 
 
 #### most important tags and their effect
 
-First, we will extract the beta from our models. 
+Here, we will extract the beta from our models and analyze the coefficients. 
 ```{r}
 betas = coef(lasso_cv, s = lambda_opt)
 

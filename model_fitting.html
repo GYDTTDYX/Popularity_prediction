@@ -398,6 +398,9 @@ df = df|&gt;
 <pre class="r"><code>df_concat = df|&gt;
   mutate(keywords = paste(df$categories, df$genres, df$tags, sep = &quot;,&quot;))|&gt;
   subset(select = -c(categories, genres, tags))</code></pre>
+<p>Since it is hard for models to directly analyze keywords as string,
+we one-hot encoded categories, genres, and tags, which facilitate models
+to analyze the dataset.</p>
 <pre class="r"><code>keywords_df = df_concat|&gt;
   subset(select = c(app_id, keywords))|&gt;
   separate_rows(keywords, sep = &quot;,&quot;)|&gt;
@@ -428,18 +431,12 @@ encoded_with_label_df = rbind(popular_encoded_df, unpopular_encoded_df)|&gt;
 dataset_without_id_name = encoded_with_label_df|&gt;
   subset(select = -c(app_id, name, release_date))|&gt;
   drop_na()</code></pre>
-<p>Since it is hard for models to directly analyze keywords as string,
-we one-hot encoded categories, genres, and tags, which facilitate models
-to analyze the dataset.</p>
 <p>During our data preprocessing phase, we identified certain tags that
 had the potential to introduce data leakage into our dataset. These
-tags, listed below, were deemed inappropriate for inclusion due to their
-subjective and conclusive nature, making them difficult for a game
-producer to ascertain accurately: <code>Masterpiece</code>,
-<code>Great Soundtrack</code>, <code>Addictive</code>,
-<code>benchmark</code>, <code>classic</code>. By excluding these tags
-from our dataset, we could provide a model that help game makers to
-determine the game’s potential popularity.</p>
+tags, are not accessible for game maker when they are making games:
+<code>Masterpiece</code>, <code>Great Soundtrack</code>,
+<code>Addictive</code>, <code>benchmark</code>,
+<code>classic</code>.</p>
 </div>
 <div id="feature-selection" class="section level3">
 <h3>feature selection</h3>
@@ -574,54 +571,38 @@ confusionMatrix(data=pull(result, prediction), reference = pull(result, actual))
 ## 
 ##           Reference
 ## Prediction     1     0
-##          1   592   302
-##          0  1068 17027
+##          1   580   283
+##          0  1056 17070
 ##                                           
-##                Accuracy : 0.9279          
-##                  95% CI : (0.9241, 0.9315)
-##     No Information Rate : 0.9126          
-##     P-Value [Acc &gt; NIR] : 1.036e-14       
+##                Accuracy : 0.9295          
+##                  95% CI : (0.9258, 0.9331)
+##     No Information Rate : 0.9138          
+##     P-Value [Acc &gt; NIR] : 1.481e-15       
 ##                                           
-##                   Kappa : 0.4286          
+##                   Kappa : 0.4303          
 ##                                           
 ##  Mcnemar&#39;s Test P-Value : &lt; 2.2e-16       
 ##                                           
-##             Sensitivity : 0.35663         
-##             Specificity : 0.98257         
-##          Pos Pred Value : 0.66219         
-##          Neg Pred Value : 0.94098         
-##              Prevalence : 0.08742         
-##          Detection Rate : 0.03118         
-##    Detection Prevalence : 0.04708         
-##       Balanced Accuracy : 0.66960         
+##             Sensitivity : 0.35452         
+##             Specificity : 0.98369         
+##          Pos Pred Value : 0.67207         
+##          Neg Pred Value : 0.94174         
+##              Prevalence : 0.08616         
+##          Detection Rate : 0.03054         
+##    Detection Prevalence : 0.04545         
+##       Balanced Accuracy : 0.66911         
 ##                                           
 ##        &#39;Positive&#39; Class : 1               
 ## </code></pre>
-<p>Upon examining the confusion matrix, it becomes evident that our
-model struggles to correctly classify a substantial number of popular
-games. However, a noteworthy observation is that the rate of false
-positives is within an acceptable range. This observation suggests that
-there may be discernible patterns among unpopular games that our model
-can capture effectively. As a result, this model holds promise in
-providing valuable insights for identifying games that are less likely
-to achieve popularity.</p>
-<p>Furthermore, our analysis reveals that the model’s performance, as
-indicated by the p-value, is statistically significant compared to the
-scenario of having no information. This suggests that our model does
-contain valuable information that contributes to its predictive
-capabilities. The significance of the p-value underscores the utility of
-the model in making informed predictions and decisions.</p>
-<p>It is important to note that the model’s sensitivity, particularly in
-recognizing popular games, is relatively low. One plausible explanation
-for this discrepancy in sensitivity may stem from the imbalanced ratio
-of popular games to unpopular games within the dataset. The skewed
-distribution of popular and unpopular games can pose challenges for the
-model in learning generalized patterns for popular games, leading to
-reduced sensitivity. It might be useful to perform a down-sampling, but
-it is unsure whether such down-sampling will cause information loss.</p>
+<p>From the confusion matrix, we could see that our model didn’t
+recognize lots of popular games. However, the amount of false positives
+is acceptable, this indicates that there might be patterns for unpopular
+games, using such model we might get some meaningful insight that can
+help us to identify those games that will not be popular.</p>
 <div id="most-important-tags-and-their-effect" class="section level4">
 <h4>most important tags and their effect</h4>
-<p>First, we will extract the beta from our models.</p>
+<p>Here, we will extract the beta from our models and analyze the
+coefficients.</p>
 <pre class="r"><code>betas = coef(lasso_cv, s = lambda_opt)
 
 beta_summary =  summary(betas)

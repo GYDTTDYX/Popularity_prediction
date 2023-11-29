@@ -392,31 +392,29 @@ API.</p>
 <p>In the process of preparing our data for analysis, we have
 established a inclusion criteria:</p>
 <pre class="r"><code>df = df|&gt; subset(price &gt; 0)</code></pre>
-<p>Our analysis exclude free games from our dataset. This decision is
-because for free-to-play games, in-app purchases often serve as
-alternatives to game sales. However, due to the unavailability of such
-data, the inclusion in our analysis would make our analysis
-inapproprate.</p>
+<p>Our analysis exclude free games since for free-to-play games, in-app
+purchases often serve as indecator of popularity. However, due to the
+unavailability of such data, the inclusion in our analysis would make
+our analysis inapproprate.</p>
 <pre class="r"><code>df = df|&gt;
   subset(select = -c(dlc_count, about_the_game, reviews, header_image, website, support_url, support_email, metacritic_score, metacritic_url, notes, developers, publishers, screenshots, movies, score_rank, average_playtime_two_weeks, median_playtime_two_weeks, average_playtime_forever, peak_ccu, full_audio_languages))</code></pre>
 <pre class="r"><code>#Change the format of release date. 
 df = df|&gt;
   mutate(release_date = as.Date(release_date, format = &quot;%b %d, %Y&quot;))</code></pre>
-<p>In addition, we removed certain variables from our dataset that are
-non-essential for our analysis.</p>
-<p>We eliminate columns containing URLs as they do not contribute
-meaningful information to our analytical objectives.</p>
+<p>In addition, we removed certain non-essential variables from our
+dataset.</p>
+<p>We eliminate columns containing URLs as we cannot make analysis based
+on them.</p>
 <p>Variables associated with game developers and publishers will be
-filtered out for two primary reasons. Firstly, we posit that making
-predictions or quantify the effect of developer names may be
-challenging, if not unfeasible. Secondly, we hypothesize that brand
-effects can be more accurately captured through a combination of game
-features and keywords, for example, there is a tag for independent
-games, which is the complement of games made by large companies.</p>
+filtered out for two primary reasons. Firstly, quantifying the effect of
+developer names may be challenging, if not impossible. Secondly, we
+hypothesize that brand effects can be captured using other keywords.
+(for example, there is a tag for independent games, which is the
+complement of games made by large companies.)</p>
 <p>Furthermore, we will exclude the variables “Playtime in Current Two
-Weeks” since it may not be representative for older games, and “Average
-Playtime Forever” in favor of “Median Playtime Forever” due to potential
-distortions caused by AFK (Away From Keyboard) gamers.</p>
+Weeks” since it may not be meaningful enough for older games, and
+“Average Playtime Forever” in favor of “Median Playtime Forever” due to
+potential distortions caused by AFK (Away From Keyboard) gamers.</p>
 <p>To address potential data leakage issues, we will further select
 features in model fitting part.</p>
 </div>
