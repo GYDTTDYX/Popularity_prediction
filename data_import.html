@@ -390,7 +390,7 @@ API.</p>
 <pre class="r"><code>df = read.csv(&quot;DATA/games.csv&quot;)|&gt;
   janitor::clean_names()</code></pre>
 <p>In the process of preparing our data for analysis, we have
-established a inclusion criteria:</p>
+established an inclusion criteria:</p>
 <pre class="r"><code>df = df|&gt; subset(price &gt; 0)</code></pre>
 <p>Our analysis exclude free games since for free-to-play games, in-app
 purchases often serve as indecator of popularity. However, due to the

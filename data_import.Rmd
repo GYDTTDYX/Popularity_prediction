@@ -28,7 +28,7 @@ df = read.csv("DATA/games.csv")|>
   janitor::clean_names()
 ```
 
-In the process of preparing our data for analysis, we have established a inclusion criteria:
+In the process of preparing our data for analysis, we have established an inclusion criteria:
 
 ```{r}
 df = df|> subset(price > 0)

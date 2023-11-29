@@ -41,16 +41,16 @@ df_popular = df|>
 df_unpopular = anti_join(df, df_popular, by="app_id")
 ```
 
-In our project, the exploration of key features of popular games forms a central objective. To establish a precise definition of "popular games" in the context of our analysis, we will primarily adhere to the standard set by Steam, a prominent gaming platform[https://www.reddit.com/r/Steam/comments/ivz45n/what_does_the_steam_ratings_like_very_negative_or/]
-According to Steam's rating system, we will categorize games as "popular" if they fall into the following rating categories: mostly positive, positive, very positive, overwhelmingly positive. This approach ensures that we consider user sentiment as a crucial aspect of popularity.
+In our project, the exploration of key features of popular games is the central objective. So it is important to make a definition of popular games, we will primarily adhere to the standard set by Steam[https://www.reddit.com/r/Steam/comments/ivz45n/what_does_the_steam_ratings_like_very_negative_or/]
+According to Steam's rating system, we will categorize games as "popular" if they fall into the following rating categories: mostly positive, positive, very positive, overwhelmingly positive. 
 
-However, we recognize that popularity encompasses more than just ratings; it also pertains to the volume of users who purchase and engage with a game. To account for this broader perspective of popularity, we have incorporated the following criteria:
+However, we recognize that popularity encompasses more than just ratings; it also means large player base. To account for this broader perspective of popularity, we have incorporated the following criteria:
 
-*Estimated Owners*: We will exclude games with an estimated owner count in the range of 0-0 and 0-20,000. This criteria ensures that we focus on games with a substantial user base.
+*Estimated Owners*: We only include games with estimated owner larger than 20000. 
 
-*Median Playtime*: Games selected for analysis will have a median playtime exceeding 120 minutes. This threshold corresponds to the latest time frame within which Steam allows game refunds. This criterion further refines our definition of popular games by considering active engagement and retention, which are indicative of a game's enduring appeal.
+*Median Playtime*: Games selected for analysis will have a median playtime exceeding 120 minutes. (This the latest time that allows users to get refunds)
 
-By combining these rating, ownership, and playtime criteria, we aim to create a comprehensive definition of "popular games" that accounts for both user sentiment and the size of the player base, enabling us to explore key features that contribute to a game's popularity in a holistic manner.
+By combining these rating, ownership, and playtime, we aim to create a comprehensive definition of "popular games" that enabling us to explore key features that contribute to a game's popularity in a holistic manner.
 
 ### price distribution of popular and unpopular games
 
