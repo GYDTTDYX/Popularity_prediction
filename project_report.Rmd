@@ -492,3 +492,22 @@ beta_df|>
 ```
 
 For the coefficient bar plot, we could see some important tags that contribute to popular games. It do fit our experience, social deduction games like Goose Goose Duck is one of the most popular game currently. Dungeons and Dragons and epic is the tags for  Divinity: Original Sin II and Baldur's Gate 3, they gain huge sales and reputation. Besides genre and mechanism, having steam trade cards and could remote play on tablet might act as counfounding since they shows the the meticulousness of game makers, which will potentially lead to a better game. 
+
+## Discussion
+
+### Game Popularity
+Our analysis reveals factors of what constitutes a popular STEAM game. The price distribution study indicates that popular games tend to be priced higher, likely due to their more complex game mechanics, superior animation effects, and extensive optimization efforts. These findings align well with industry expectations that higher investment in quality and features often translates into higher pricing and, subsequently, popularity.
+The investigation into the frequency of keywords across genres, categories, and tags provided further understandings. Our findings show a high prevalence of single- player games and indie games, especially noticeable post-2012. This suggests a shift in player preferences more towards diversity and unique gaming experiences. The traction gained by casual and early access games further accentuates this trend, highlighting a market that values accessibility and active involvement in game development.
+
+### Model Performance and Implications
+The Lasso regression model highlighted forth key factors influencing game popularity. Tags like "Social Deduction", "Dungeons and Dragons", and "Epic" stood out significantly, suggesting that both genre and in-game mechanisms play crucial roles in determining a game's success. Interestingly, peripheral features like STEAM trading cards and tablet playability, might reflect a developer's attention to detail, correlating with overall game quality.
+There are some limitations in sensitivity while identifying the popularity. This limitation could cause by an imbalanced dataset and highlights the need for more nuanced modeling approaches or data sampling techniques to better capture the subtleties of game popularity.
+
+### Future Research
+The rise of indie and casual games suggests a democratization of game development and a shift in consumer preferences towards more personal and relaxed gaming experiences. The popularity of early access games indicates a growing acceptance of participatory development models, where community feedback shapes the game's evolution.
+
+## Conclusion
+Our analysis overviewed what drives game popularity on STEAM. While high-quality game mechanics and production values remain core contributors to a game's success, the rising popularity of indie and casual games indicates a shift in market dynamics and player preferences.
+This study provides insights for game developers in strategizing their game design and marketing. Future research could benefit from exploring the impact of social and
+  
+streaming platforms on game popularity and the role of community engagement in shaping game success. Additionally, investigating the evolving landscape of game monetization strategies, especially in the free-to-play sector, could yield enlightening insights for the gaming industry at large.

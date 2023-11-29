@@ -115,6 +115,7 @@ df|>
 ```
 
 From the price distribution plot of games categorized by different estimated owner counts, a notable pattern emerges. Specifically, games with a greater number of estimated owners tend to exhibit relatively higher prices. However, an intriguing observation is that once a certain threshold of estimated owners is reached, the prices of games begin to decline.
+
 ### Overall frequency of keywords(genre, categories, tags)
 
 Here, we try to explore the trend of keywords in genre, categories, tags. 

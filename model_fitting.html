@@ -549,7 +549,8 @@ lambda_opt = lasso_cv$lambda.min</code></pre>
 <pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 ## ℹ Please use `linewidth` instead.
 ## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</code></pre>
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning
+## was generated.</code></pre>
 <p><img src="model_fitting_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>This plot shows the best selection of lambda.</p>
 <pre class="r"><code>result = predict(lasso_fit, s = lambda_opt, newx = as.matrix(test_x), type = &#39;response&#39;)</code></pre>
@@ -573,28 +574,28 @@ confusionMatrix(data=pull(result, prediction), reference = pull(result, actual))
 ## 
 ##           Reference
 ## Prediction     1     0
-##          1   612   319
-##          0  1126 16932
-##                                         
-##                Accuracy : 0.9239        
-##                  95% CI : (0.92, 0.9276)
-##     No Information Rate : 0.9085        
-##     P-Value [Acc &gt; NIR] : 2.045e-14     
-##                                         
-##                   Kappa : 0.4217        
-##                                         
-##  Mcnemar&#39;s Test P-Value : &lt; 2.2e-16     
-##                                         
-##             Sensitivity : 0.35213       
-##             Specificity : 0.98151       
-##          Pos Pred Value : 0.65736       
-##          Neg Pred Value : 0.93765       
-##              Prevalence : 0.09153       
-##          Detection Rate : 0.03223       
-##    Detection Prevalence : 0.04903       
-##       Balanced Accuracy : 0.66682       
-##                                         
-##        &#39;Positive&#39; Class : 1             
+##          1   548   318
+##          0  1076 17047
+##                                           
+##                Accuracy : 0.9266          
+##                  95% CI : (0.9228, 0.9303)
+##     No Information Rate : 0.9145          
+##     P-Value [Acc &gt; NIR] : 5.748e-10       
+##                                           
+##                   Kappa : 0.4048          
+##                                           
+##  Mcnemar&#39;s Test P-Value : &lt; 2.2e-16       
+##                                           
+##             Sensitivity : 0.33744         
+##             Specificity : 0.98169         
+##          Pos Pred Value : 0.63279         
+##          Neg Pred Value : 0.94063         
+##              Prevalence : 0.08552         
+##          Detection Rate : 0.02886         
+##    Detection Prevalence : 0.04561         
+##       Balanced Accuracy : 0.65956         
+##                                           
+##        &#39;Positive&#39; Class : 1               
 ## </code></pre>
 <p>Upon examining the confusion matrix, it becomes evident that our
 model struggles to correctly classify a substantial number of popular
