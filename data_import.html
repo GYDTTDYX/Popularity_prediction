@@ -390,24 +390,20 @@ API.</p>
 <pre class="r"><code>df = read.csv(&quot;DATA/games.csv&quot;)|&gt;
   janitor::clean_names()</code></pre>
 <p>In the process of preparing our data for analysis, we have
-established a set of inclusion and variable selection criteria to ensure
-the relevance of our study. These criteria are vital to the successful
-execution of our data science investigation.</p>
+established a inclusion criteria:</p>
 <pre class="r"><code>df = df|&gt; subset(price &gt; 0)</code></pre>
-<p>One of the primary inclusion criteria for our analysis is the
-exclusion of free games from our dataset. This decision is underpinned
-by the understanding that in free-to-play games, in-app purchases often
-serve as viable alternatives to traditional game sales. However, due to
-the unavailability of comprehensive data pertaining to these in-app
-purchases, their inclusion in our analysis would be both impractical and
-imprecise.</p>
+<p>Our analysis exclude free games from our dataset. This decision is
+because for free-to-play games, in-app purchases often serve as
+alternatives to game sales. However, due to the unavailability of such
+data, the inclusion in our analysis would make our analysis
+inapproprate.</p>
 <pre class="r"><code>df = df|&gt;
   subset(select = -c(dlc_count, about_the_game, reviews, header_image, website, support_url, support_email, metacritic_score, metacritic_url, notes, developers, publishers, screenshots, movies, score_rank, average_playtime_two_weeks, median_playtime_two_weeks, average_playtime_forever, peak_ccu, full_audio_languages))</code></pre>
 <pre class="r"><code>#Change the format of release date. 
 df = df|&gt;
   mutate(release_date = as.Date(release_date, format = &quot;%b %d, %Y&quot;))</code></pre>
-<p>In addition, we have also opted to remove certain variables from our
-dataset that are non-essential for our analysis:</p>
+<p>In addition, we removed certain variables from our dataset that are
+non-essential for our analysis.</p>
 <p>We eliminate columns containing URLs as they do not contribute
 meaningful information to our analytical objectives.</p>
 <p>Variables associated with game developers and publishers will be
@@ -418,13 +414,11 @@ effects can be more accurately captured through a combination of game
 features and keywords, for example, there is a tag for independent
 games, which is the complement of games made by large companies.</p>
 <p>Furthermore, we will exclude the variables “Playtime in Current Two
-Weeks” as it may not be representative for older games, and “Average
+Weeks” since it may not be representative for older games, and “Average
 Playtime Forever” in favor of “Median Playtime Forever” due to potential
 distortions caused by AFK (Away From Keyboard) gamers.</p>
-<p>It is worth noting that we are cognizant of the need to address
-potential data leakage issues and redundant feature when fitting our
-model. These aspects will be thoroughly addressed in subsequent stages
-of our analysis to ensure the robustness of our findings.</p>
+<p>To address potential data leakage issues, we will further select
+features in model fitting part.</p>
 </div>
 
 
