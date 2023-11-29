@@ -392,10 +392,10 @@ API.</p>
 <p>In the process of preparing our data for analysis, we have
 established an inclusion criteria:</p>
 <pre class="r"><code>df = df|&gt; subset(price &gt; 0)</code></pre>
-<p>Our analysis exclude free games since for free-to-play games, in-app
-purchases often serve as indecator of popularity. However, due to the
+<p>Our analysis excludes free games since for free-to-play games, in-app
+purchases often serve as an indicator of popularity. However, due to the
 unavailability of such data, the inclusion in our analysis would make
-our analysis inapproprate.</p>
+our analysis inappropriate.</p>
 <pre class="r"><code>df = df|&gt;
   subset(select = -c(dlc_count, about_the_game, reviews, header_image, website, support_url, support_email, metacritic_score, metacritic_url, notes, developers, publishers, screenshots, movies, score_rank, average_playtime_two_weeks, median_playtime_two_weeks, average_playtime_forever, peak_ccu, full_audio_languages))</code></pre>
 <pre class="r"><code>#Change the format of release date. 
@@ -403,8 +403,8 @@ df = df|&gt;
   mutate(release_date = as.Date(release_date, format = &quot;%b %d, %Y&quot;))</code></pre>
 <p>In addition, we removed certain non-essential variables from our
 dataset.</p>
-<p>We eliminate columns containing URLs as we cannot make analysis based
-on them.</p>
+<p>We eliminate columns containing URLs as we cannot make an analysis
+based on them.</p>
 <p>Variables associated with game developers and publishers will be
 filtered out for two primary reasons. Firstly, quantifying the effect of
 developer names may be challenging, if not impossible. Secondly, we

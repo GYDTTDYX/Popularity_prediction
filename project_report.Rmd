@@ -1,6 +1,10 @@
 ---
 title: "project report"
-output: html_document
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
 ---
 
 ```{r}
@@ -36,11 +40,11 @@ https://www.kaggle.com/datasets/fronkongames/steam-games-dataset
 
 In the process of preparing our data for analysis, we have established an inclusion criteria:
 
-Our analysis exclude free games since for free-to-play games, in-app purchases often serve as indecator of popularity. However, due to the unavailability of such data, the inclusion in our analysis would make our analysis inapproprate. 
+Our analysis excludes free games since for free-to-play games, in-app purchases often serve as an indicator of popularity. However, due to the unavailability of such data, the inclusion in our analysis would make our analysis inappropriate. 
 
 In addition, we removed certain non-essential variables from our dataset.
 
-We eliminate columns containing URLs as we cannot make analysis based on them.
+We eliminate columns containing URLs as we cannot make an analysis based on them.
 
 Variables associated with game developers and publishers will be filtered out for two primary reasons. Firstly, quantifying the effect of developer names may be challenging, if not impossible. Secondly, we hypothesize that brand effects can be captured using other keywords. (for example, there is a tag for independent games, which is the complement of games made by large companies.)
 
@@ -64,16 +68,16 @@ df = df|>
 ## EDA
 
 ### definition of popular games
-In our project, the exploration of key features of popular games is the central objective. So it is important to make a definition of popular games, we will primarily adhere to the standard set by Steam[https://www.reddit.com/r/Steam/comments/ivz45n/what_does_the_steam_ratings_like_very_negative_or/]
-According to Steam's rating system, we will categorize games as "popular" if they fall into the following rating categories: mostly positive, positive, very positive, overwhelmingly positive. 
+We aim to analyze features that makes games popular, so it is important to make a definition of popular games, we will primarily adhere to the standard set by Steam[https://www.reddit.com/r/Steam/comments/ivz45n/what_does_the_steam_ratings_like_very_negative_or/]
+According to Steam's rating system, we classify games as "popular" if they are mostly positive, positive, very positive, and overwhelmingly positive. 
 
-However, we recognize that popularity encompasses more than just ratings; it also means large player base. To account for this broader perspective of popularity, we have incorporated the following criteria:
+However, popularity means more than ratings; it also means a large player base. To account for this broader perspective of popularity, we included more criteria:
 
-*Estimated Owners*: We only include games with estimated owner larger than 20000. 
+*Estimated Owners*: We only include games with estimated-owners more than 20000 people. 
 
-*Median Playtime*: Games selected for analysis will have a median playtime exceeding 120 minutes. (This the latest time that allows users to get refunds)
+*Median Playtime*: Games selected for analysis will have a median playtime exceeding 120 minutes. (This is the latest time that allows users to get refunds)
 
-By combining these rating, ownership, and playtime, we aim to create a comprehensive definition of "popular games" that enabling us to explore key features that contribute to a game's popularity in a holistic manner.
+By combining ratings, ownership, and playtime information, we could have a precise definition of "popular games" that fit our experience.
 
 ```{r}
 df_popular = df|>
@@ -92,15 +96,15 @@ summary(pull(df_popular, price))
 summary(pull(df_unpopular, price))
 ```
 
-Based on tables, it is evident that popular games are more expensive than less popular games in every quantile. Such difference might caused by several reasons.
+Based on the tables, it is evident that popular games are more expensive than less popular games in every quantile. Such a difference might caused by several reasons.
 
-*Mechanics*: Popular games often have complex game mechanics that improve gaming experience. However, developing such mechanics requires time, which leads to higher production costs and reflect on the final price.
+*Mechanics*: Popular games often have complex game mechanics that improve the gaming experience. However, developing such mechanics requires time, which leads to higher production costs and reflects on the final price.
 
-*Animation Effects*: The captivating animation effects is a important component for good games. The creation requires hiring skilled artists, which will lead to increasing production cost
+*Animation Effects*: The captivating animation effects are an important component of good games. The creation requires hiring skilled artists, which will lead to increasing production cost
 
-*Game Optimization*: Popular games need to ensure smooth gameplay(although we have to admit some popular games still have tons of bugs). Optimization requires talented coder, which increase the production cost. 
+*Game Optimization*: Popular games need to ensure smooth gameplay(although we have to admit some popular games still have tons of bugs). Optimization requires a talented coder, which increases the production cost. 
 
-Then, we used statistical test to test whether there is difference in the two price distribution. 
+Then, we used a statistical test to test whether there is a difference in the two price distributions. 
 
 ```{r}
 df_unpopular = df_unpopular|>subset(name != "Ascent Free-Roaming VR Experience")
@@ -114,7 +118,7 @@ ggplot(data = combined_data, aes(x = price, fill = dataset)) +
 
 ```
 
-The two distribution loos approximately normal, so we decide to use T-test to test whether two groups's log transformed price have similar distribution.
+The two distribution looks approximately normal, so we decide to use T-test to test whether two groups's log transformed price have similar distribution.
 
 H0: they have same mean price
 
@@ -142,7 +146,7 @@ df|>
   coord_flip()
 ```
 
-From the price distribution plot, a notable pattern emerges: games with more owners tend to be more expensive. However, an interesting observation is that once a certain threshold of numbers of owners is reached, the prices of games begin to decline.
+From the price distribution plot we could observe a trend that games with more owners tend to be more expensive. However, we also noticed that a threshold exist: once a certain numbers of owners is reached, the prices of games begin to decline.
 
 ### Overall frequency of keywords(genre, categories, tags)
 
@@ -161,7 +165,7 @@ categories_freq = df|>
 categories_freq
 ```
 
-From the bar plot, it is evident that single-player games have highest frequency in our dataset, this is reasonable since multi-player games require higher optimization, single player games is the best choice for independent game maker. The VR related categories have low frequency in games, this is because the equipment is expensive and the technology is relatively new. 
+From the bar plot, it is evident that single-player games have the highest frequency in our dataset, this is reasonable since multi-player games require higher optimization, and single player games are the best choice for independent game maker. The VR-related categories have low frequency in games, this is because the equipment is expensive and the technology is relatively new. 
 
 ```{r}
 genre_freq = df|>
@@ -241,13 +245,13 @@ popular_genres_bar_plot
 
 We found some interesting trend from the line plot:
 
-*Rise of Indie Games*: We notice that the genre "indie" increase in recent years, particularly after year 2012. This increase might caused by more accessible personal computer and no-code platform like RPG-maker, which made it easier for independent game developers to create their games. 
+*Rise of Indie Games*: We notice that the genre "indie" has increased in recent years, particularly after the year 2012. This increase might caused by more accessible personal computers and no-code platforms like RPG-maker, which made it easier for independent game developers to create their games. 
 
-*Shift in Genre Popularity*: The line plot also show a decrease frequency of Action games. Although we have to admit it is still one of the most frequent genere, it experienced a decline in recent years. This shift may be caused by changing in player preferences. Since most old games are action games, players might seek new genre when there are available ones. It suggests that players are increasingly seeking a wider variety of genre. 
+*Shift in Genre Popularity*: The line plot also shows a decreased frequency of Action games. Although we have to admit it is still one of the most frequent genres, it experienced a decline in recent years. This shift may be caused by changes in player preferences. Since most old games are action games, players might seek new genres when there are available ones. It suggests that players are increasingly seeking a wider variety of genres. 
 
-*Casual Games on the Rise*: We noticed there is an increase in the frequency of "Casual" games. This reveals that as the first generation that familiar with computer gradually enter job market, games that are relaxing are more preferable for them. 
+*Casual Games on the Rise*: We noticed there is an increase in the frequency of "Casual" games. This reveals that as the first generation that is familiar with computer gradually enter the job market, games that are relaxing are preferable for them. 
 
-*Early Access Strategy*: The "Early Access" games on Steam experienced a notable increase. This prosperous new business model in game area shows the potential of games. 
+*Early Access Strategy*: The "Early Access" games on Steam experienced a notable increase. This prosperous new business model in the game area shows the potential of games. 
 
 ### Word Cloud visualization
 Wordcloud could help visualize the the frequency of keywords in different groups. Here, we separately create word cloud for popular and unpopular games. 
@@ -280,18 +284,18 @@ popular_tags_wordcloud
 unpopular_tags_wordcloud
 ```
 
-We can observe differences among the three word clouds above.
+We can observe differences among the three word-clouds plots:
 
-We notice that the tag "difficult" appears more frequently in the word cloud for popular games. This aligns with reality, as some of the best games in history, such as Elden Ring and Sekiro: Shadows Die Twice, are known for their challenging gameplay.
+The tag "difficult" appears more frequently in the word-cloud for popular and overwhelm popular games. This fit with with reality. Some of the best games in history, such as Elden Ring and Sekiro: Shadows Die Twice, are known for their challenging gameplay.
 
-An interesting observation is that the ratio of 2D games to 3D games is higher in popular games compared to unpopular ones. This is reasonable since small studios may struggle to allocate sufficient resources to create high-quality 3D environments and they might choose to put their budget in mechanics. This contributes to the higher frequency of 2D games in the popular category.
+Another interesting difference is the ratio of 2D games to 3D games is higher in popular games. This is reasonable since small studios may struggle to allocate sufficient resources to create high-quality 3D modeling and they might choose to put the budget in mechanics. This contributes to the higher frequency of 2D games in the popular category.
 
 ## model fitting
 
 ### Preventing data leakage
-Since it is hard for models to directly analyze keywords as string, we one-hot encoded categories, genres, and tags, which facilitate models to analyze the dataset. 
+Since it is hard for models to directly analyze keywords as strings, we one-hot encoded categories, genres, and tags. Changing them to categorical variables facilitates models to analyze the dataset. 
 
-During our data preprocessing phase, we identified certain tags that had the potential to introduce data leakage into our dataset. These tags, are not accessible for game maker when they are making games: `Masterpiece`, `Great Soundtrack`, `Addictive`, `benchmark`, `classic`.  
+During our data preprocessing phase, we identified certain tags that had the potential to introduce data leakage into our dataset. These tags are not accessible for game makers when they are making games: `Masterpiece`, `Great Soundtrack`, `Addictive`, `benchmark`, `classic`.  
 
 ```{r}
 df_concat = df|>
@@ -463,7 +467,7 @@ result = result|>
 confusionMatrix(data=pull(result, prediction), reference = pull(result, actual))
 ```
 
-From the confusion matrix, we could see that our model didn't recognize lots of popular games. However, the amount of false positives is acceptable, this indicates that there might be patterns for unpopular games, using such model we might get some meaningful insight that can help us to identify those games that will not be popular. 
+From the confusion matrix, we could see that our model didn't recognize lots of popular games. However, the amount of false positives is acceptable, this indicates that there might be patterns for unpopular games, using such a model we might get some meaningful insight that can help us to identify those games that will not be popular.  
 
 #### most important tags and their effect
 
@@ -488,7 +492,7 @@ beta_df|>
   coord_flip()
 ```
 
-For the coefficient bar plot, we could see some important tags that contribute to popular games. It do fit our experience, social deduction games like Goose Goose Duck is one of the most popular game currently. Dungeons and Dragons and epic is the tags for  Divinity: Original Sin II and Baldur's Gate 3, they gain huge sales and reputation. Besides genre and mechanism, having steam trade cards and could remote play on tablet might act as confounders since they shows the the meticulousness of game makers, which will potentially lead to a better game. 
+For the coefficient bar plot, we could see some important tags that contribute to popular games. It does fit our experience, social deduction games like Goose Goose Duck are one of the most popular games currently. Dungeons and Dragons and Epic are the tags for  Divinity: Original Sin II and Baldur's Gate 3, they gain huge sales and reputation. Besides genre and mechanism, having Steam trade cards and remote play on a tablet might act as confounders since they show the the meticulousness of game makers, which will potentially lead to a better game. 
 
 ## Discussion
 

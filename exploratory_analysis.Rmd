@@ -41,16 +41,15 @@ df_popular = df|>
 df_unpopular = anti_join(df, df_popular, by="app_id")
 ```
 
-In our project, the exploration of key features of popular games is the central objective. So it is important to make a definition of popular games, we will primarily adhere to the standard set by Steam[https://www.reddit.com/r/Steam/comments/ivz45n/what_does_the_steam_ratings_like_very_negative_or/]
-According to Steam's rating system, we will categorize games as "popular" if they fall into the following rating categories: mostly positive, positive, very positive, overwhelmingly positive. 
+We aim to analyze features that makes games popular, so it is important to make a definition of popular games, we will primarily adhere to the standard set by Steam[https://www.reddit.com/r/Steam/comments/ivz45n/what_does_the_steam_ratings_like_very_negative_or/] According to Steam’s rating system, we classify games as “popular” if they are mostly positive, positive, very positive, and overwhelmingly positive.
 
-However, we recognize that popularity encompasses more than just ratings; it also means large player base. To account for this broader perspective of popularity, we have incorporated the following criteria:
+However, popularity means more than ratings; it also means a large player base. To account for this broader perspective of popularity, we included more criteria:
 
-*Estimated Owners*: We only include games with estimated owner larger than 20000. 
+Estimated Owners: We only include games with estimated-owners more than 20000 people.
 
-*Median Playtime*: Games selected for analysis will have a median playtime exceeding 120 minutes. (This the latest time that allows users to get refunds)
+Median Playtime: Games selected for analysis will have a median playtime exceeding 120 minutes. (This is the latest time that allows users to get refunds)
 
-By combining these rating, ownership, and playtime, we aim to create a comprehensive definition of "popular games" that enabling us to explore key features that contribute to a game's popularity in a holistic manner.
+By combining ratings, ownership, and playtime information, we could have a precise definition of “popular games” that fit our experience.
 
 ### price distribution of popular and unpopular games
 
@@ -113,7 +112,7 @@ df|>
   coord_flip()
 ```
 
-From the price distribution plot of games categorized by different estimated owner counts, a notable pattern emerges. Specifically, games with a greater number of estimated owners tend to exhibit relatively higher prices. However, an intriguing observation is that once a certain threshold of estimated owners is reached, the prices of games begin to decline.
+From the price distribution plot we could observe a trend that games with more owners tend to be more expensive. However, we also noticed that a threshold exist: once a certain numbers of owners is reached, the prices of games begin to decline.
 
 ### Overall frequency of keywords(genre, categories, tags)
 
@@ -132,7 +131,7 @@ categories_freq = df|>
 categories_freq
 ```
 
-From the bar plot, it is evident that single-player games have highest frequency in our dataset, this is reasonable since multi-player games require higher optimization, single player games is the best choice for independent game maker. The VR related categories have low frequency in games, this is because the equipment is expensive and the technology is relatively new. 
+From the bar plot, it is evident that single-player games have the highest frequency in our dataset, this is reasonable since multi-player games require higher optimization, and single player games are the best choice for independent game maker. The VR-related categories have low frequency in games, this is because the equipment is expensive and the technology is relatively new.
 
 ```{r}
 genre_freq = df|>
@@ -212,13 +211,13 @@ popular_genres_bar_plot
 
 We found some interesting trend from the line plot:
 
-*Rise of Indie Games*: We notice that the genre "indie" increase in recent years, particularly after year 2012. This increase might caused by more accessible personal computer and no-code platform like RPG-maker, which made it easier for independent game developers to create their games. 
+*Rise of Indie Games*: We notice that the genre "indie" has increased in recent years, particularly after the year 2012. This increase might caused by more accessible personal computers and no-code platforms like RPG-maker, which made it easier for independent game developers to create their games. 
 
-*Shift in Genre Popularity*: The line plot also show a decrease frequency of Action games. Although we have to admit it is still one of the most frequent genere, it experienced a decline in recent years. This shift may be caused by changing in player preferences. Since most old games are action games, players might seek new genre when there are available ones. It suggests that players are increasingly seeking a wider variety of genre. 
+*Shift in Genre Popularity*: The line plot also shows a decreased frequency of Action games. Although we have to admit it is still one of the most frequent genres, it experienced a decline in recent years. This shift may be caused by changes in player preferences. Since most old games are action games, players might seek new genres when there are available ones. It suggests that players are increasingly seeking a wider variety of genres. 
 
-*Casual Games on the Rise*: We noticed there is an increase in the frequency of "Casual" games. This reveals that as the first generation that familiar with computer gradually enter job market, games that are relaxing are more preferable for them. 
+*Casual Games on the Rise*: We noticed there is an increase in the frequency of "Casual" games. This reveals that as the first generation that is familiar with computer gradually enter the job market, games that are relaxing are preferable for them. 
 
-*Early Access Strategy*: The "Early Access" games on Steam experienced a notable increase. This prosperous new business model in game area shows the potential of games. 
+*Early Access Strategy*: The "Early Access" games on Steam experienced a notable increase. This prosperous new business model in the game area shows the potential of games. 
 
 ### Word Cloud visualization
 Wordcloud could help visualize the the frequency of keywords in different groups. Here, we separately create word cloud for popular and unpopular games. 
@@ -260,8 +259,8 @@ unpopular games' wordcloud
 unpopular_tags_wordcloud
 ```
 
-We can observe differences among the three word clouds above.
+We can observe differences among the three word-clouds plots:
 
-We notice that the tag "difficult" appears more frequently in the word cloud for popular games. This aligns with reality, as some of the best games in history, such as Elden Ring and Sekiro: Shadows Die Twice, are known for their challenging gameplay.
+The tag “difficult” appears more frequently in the word-cloud for popular and overwhelm popular games. This fit with with reality. Some of the best games in history, such as Elden Ring and Sekiro: Shadows Die Twice, are known for their challenging gameplay.
 
-An interesting observation is that the ratio of 2D games to 3D games is higher in popular games compared to unpopular ones. This is reasonable since plot and game mechanics often take precedence in game development. Small studios may struggle to allocate sufficient resources to create high-quality 3D environments, prompting them to opt for 2D games more frequently. This contributes to the higher frequency of 2D games in the popular category.
+Another interesting difference is the ratio of 2D games to 3D games is higher in popular games. This is reasonable since small studios may struggle to allocate sufficient resources to create high-quality 3D modeling and they might choose to put the budget in mechanics. This contributes to the higher frequency of 2D games in the popular category.

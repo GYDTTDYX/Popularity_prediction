@@ -42,7 +42,7 @@ df_concat = df|>
   subset(select = -c(categories, genres, tags))
 ```
 
-Since it is hard for models to directly analyze keywords as string, we one-hot encoded categories, genres, and tags, which facilitate models to analyze the dataset. 
+Since it is hard for models to directly analyze keywords as strings, we one-hot encoded categories, genres, and tags. Changing them to categorical variables facilitates models to analyze the dataset.
 
 ```{r}
 keywords_df = df_concat|>
@@ -77,11 +77,11 @@ dataset_without_id_name = encoded_with_label_df|>
   drop_na()
 ```
 
-During our data preprocessing phase, we identified certain tags that had the potential to introduce data leakage into our dataset. These tags, are not accessible for game maker when they are making games: `Masterpiece`, `Great Soundtrack`, `Addictive`, `benchmark`, `classic`.  
+During our data preprocessing phase, we identified certain tags that had the potential to introduce data leakage into our dataset. These tags are not accessible for game makers when they are making games: Masterpiece, Great Soundtrack, Addictive, benchmark, classic.
 
 ### feature selection
 
-There are some redundant feature in our dataset, we might want to find those variables and remove some of them. 
+There are some redundant feature in our dataset, we might want to find those variables and remove some of them.
 
 ```{r}
 #this function could help us find tags that be potential subset of other tags. By getting the dot product of two on-hot encoded vector and compare its sum with current column's sum, if they are equal and larger than 0, they could be possible related tags. 
@@ -119,7 +119,6 @@ dataset_without_id_name = dataset_without_id_name|>
 ```
 
 We identified redundant features such as 'Multi_player' and 'multiplayer,' as well as 'Single_player' and 'singleplayer.' Although they are not completely collinear, it was evident that they provided similar information. To enhance model interpretability, we decided to remove one of each redundant pair.
-
 
 ### Lasso regression
 Here, we choose lasso regression since it could perform feature selection. We uses 5 fold-cv for lambda selecting. We first separate test set and train set to prevent possible data leakage. 
@@ -211,7 +210,7 @@ result = result|>
 confusionMatrix(data=pull(result, prediction), reference = pull(result, actual))
 ```
 
-From the confusion matrix, we could see that our model didn't recognize lots of popular games. However, the amount of false positives is acceptable, this indicates that there might be patterns for unpopular games, using such model we might get some meaningful insight that can help us to identify those games that will not be popular. 
+From the confusion matrix, we could see that our model didn’t recognize lots of popular games. However, the amount of false positives is acceptable, this indicates that there might be patterns for unpopular games, using such a model we might get some meaningful insight that can help us to identify those games that will not be popular.
 
 #### most important tags and their effect
 
@@ -236,4 +235,4 @@ beta_df|>
   coord_flip()
 ```
 
-For the coefficient bar plot, we could see some important tags that contribute to popular games. It do fit our experience, social deduction games like Goose Goose Duck is one of the most popular game currently. Dungeons and Dragons and epic is the tags for  Divinity: Original Sin II and Baldur's Gate 3, they gain huge sales and reputation. Besides genre and mechanism, having steam trade cards and could remote play on tablet might act as confounders since they shows the the meticulousness of game makers, which will potentially lead to a better game. 
+For the coefficient bar plot, we could see some important tags that contribute to popular games. It does fit our experience, social deduction games like Goose Goose Duck are one of the most popular games currently. Dungeons and Dragons and Epic are the tags for Divinity: Original Sin II and Baldur’s Gate 3, they gain huge sales and reputation. Besides genre and mechanism, having Steam trade cards and remote play on a tablet might act as confounders since they show the the meticulousness of game makers, which will potentially lead to a better game.
