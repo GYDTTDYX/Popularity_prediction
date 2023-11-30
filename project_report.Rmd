@@ -1,10 +1,6 @@
 ---
 title: "project report"
-output:
-  html_document:
-    toc: true
-    toc_float: true
-    code_folding: hide
+output: html_document
 ---
 
 ```{r}
@@ -40,17 +36,17 @@ https://www.kaggle.com/datasets/fronkongames/steam-games-dataset
 
 In the process of preparing our data for analysis, we have established an inclusion criteria:
 
-Our analysis excludes free games since for free-to-play games, in-app purchases often serve as an indicator of popularity. However, due to the unavailability of such data, the inclusion in our analysis would make our analysis inappropriate. 
+We excludes free games from the dataset since for free games, the in-app purchases act as total sales in orther games. But such data are owned by different game company, not steam, so including those information would make our analysis biased.
 
-In addition, we removed certain non-essential variables from our dataset.
+In addition, we removed certain variables from our dataset in order to make our data tidier.
 
-We eliminate columns containing URLs as we cannot make an analysis based on them.
+We delete columns containing URLs since we cannot make an analysis based on them.
 
-Variables associated with game developers and publishers will be filtered out for two primary reasons. Firstly, quantifying the effect of developer names may be challenging, if not impossible. Secondly, we hypothesize that brand effects can be captured using other keywords. (for example, there is a tag for independent games, which is the complement of games made by large companies.)
+Game developers and publishers columns are deleted since firstly, it is not possible to quantify the effect of them only by their names. Also, we hypothesize that the grnral effects of large company are included in our model since there is a tag for independent games, which means games without that tag are made by larger companies.
 
-Furthermore, we will exclude the variables "Playtime in Current Two Weeks" since it may not be meaningful enough for older games, and "Average Playtime Forever" in favor of "Median Playtime Forever" due to potential distortions caused by AFK (Away From Keyboard) gamers. 
+Furthermore, variables related to "Playtime" were deleted since developer cannot get such information when they develop their games. 
 
-To address potential data leakage issues, we will further select features in model fitting part. 
+There are still data leakage in games' tag, we will do further feature selection in model fitting part. 
 
 ```{r}
 df = read.csv("DATA/games.csv")|>
@@ -497,18 +493,16 @@ For the coefficient bar plot, we could see some important tags that contribute t
 ## Discussion
 
 ### Game Popularity
-Our analysis reveals factors of what constitutes a popular STEAM game. The price distribution study indicates that popular games tend to be priced higher, likely due to their more complex game mechanics, superior animation effects, and extensive optimization efforts. These findings align well with industry expectations that higher investment in quality and features often translates into higher pricing and, subsequently, popularity.
-The investigation into the frequency of keywords across genres, categories, and tags provided further understandings. Our findings show a high prevalence of single- player games and indie games, especially noticeable post-2012. This suggests a shift in player preferences more towards diversity and unique gaming experiences. The traction gained by casual and early access games further accentuates this trend, highlighting a market that values accessibility and active involvement in game development.
+Our analysis reveals factors of what constitutes a popular STEAM game. The price distribution indicates that popular games tend to be priced higher, likely due to their more complex game mechanics, superior animation effects, and extensive optimization efforts. These findings align well with industry expectations that higher investment in quality and features often translates into higher price and popularity.
+Further investigations on the frequency of keywords across genres, categories, and tags were enhanced the understanding of popular games. For example, our findings show a high prevalence of single-player games and indie games, especially after 2012, which suggesting players toward prefer to have more diverse and unique gaming experience. Moreover, more players trend to play casual and early access games, which highlighting a market that values accessibility and active involvement in game development.
 
 ### Model Performance and Implications
-The Lasso regression model highlighted forth key factors influencing game popularity. Tags like "Social Deduction", "Dungeons and Dragons", and "Epic" stood out significantly, suggesting that both genre and in-game mechanisms play crucial roles in determining a game's success. Interestingly, peripheral features like STEAM trading cards and tablet playability, might reflect a developer's attention to detail, correlating with overall game quality.
-There are some limitations in sensitivity while identifying the popularity. This limitation could cause by an imbalanced dataset and highlights the need for more nuanced modeling approaches or data sampling techniques to better capture the subtleties of game popularity.
+The Lasso regression model highlights some key factors that can influence the game popularity. Among all, "Social Deduction", "Dungeons and Dragons", and "Epic" stand out significantly, suggesting that both genre and in-game mechanisms play crucial roles in determining a game's success. Interestingly, peripheral features like STEAM trading cards and tablet playability that reflect developer's attention to details is correlated with overall game quality and affect the game’s success eventually. 
+There are some limitations in sensitivity while identifying the game popularity, which is likely due to imbalanced datasets. So, further accurate modeling and sampling approaches are required to better identify the game popularity.
 
 ### Future Research
-The rise of indie and casual games suggests a democratization of game development and a shift in consumer preferences towards more personal and relaxed gaming experiences. The popularity of early access games indicates a growing acceptance of participatory development models, where community feedback shapes the game's evolution.
+Since the indie and casual games became more popular, suggesting players wish to have more identical and relaxed experiences. While the popularity of early access games indicates the acceptance of participatory development models. As a result, games need to follow the costumers’ feedback to be success. 
 
 ## Conclusion
-Our analysis overviewed what drives game popularity on STEAM. While high-quality game mechanics and production values remain core contributors to a game's success, the rising popularity of indie and casual games indicates a shift in market dynamics and player preferences.
-This study provides insights for game developers in strategizing their game design and marketing. Future research could benefit from exploring the impact of social and
-  
-streaming platforms on game popularity and the role of community engagement in shaping game success. Additionally, investigating the evolving landscape of game monetization strategies, especially in the free-to-play sector, could yield enlightening insights for the gaming industry at large.
+Our analysis overviewed factors drive game popularity on STEAM specially. Besides high-quality mechanics and production of games is the key for game’s success, the rising popularity of indie and casual games displays a new trend in gaming market and a shift in players’ preference. 
+Our study findings provide insights for game-developers in strategizing game design and marketing. Additionally, investigating the development of game monetization strategies, especially in the free-to-play sector, can yield enlightening insights for the gaming industry as a whole.

@@ -34,7 +34,7 @@ In the process of preparing our data for analysis, we have established an inclus
 df = df|> subset(price > 0)
 ```
 
-Our analysis excludes free games since for free-to-play games, in-app purchases often serve as an indicator of popularity. However, due to the unavailability of such data, the inclusion in our analysis would make our analysis inappropriate. 
+We excludes free games from the dataset since for free games, the in-app purchases act as total sales in orther games. But such data are owned by different game company, not steam, so including those information would make our analysis biased.
 
 ```{r}
 df = df|>
@@ -47,12 +47,12 @@ df = df|>
 df = df|>
   mutate(release_date = as.Date(release_date, format = "%b %d, %Y"))
 ```
-In addition, we removed certain non-essential variables from our dataset.
+In addition, we removed certain variables from our dataset in order to make our data tidier.
 
-We eliminate columns containing URLs as we cannot make an analysis based on them.
+We delete columns containing URLs since we cannot make an analysis based on them.
 
-Variables associated with game developers and publishers will be filtered out for two primary reasons. Firstly, quantifying the effect of developer names may be challenging, if not impossible. Secondly, we hypothesize that brand effects can be captured using other keywords. (for example, there is a tag for independent games, which is the complement of games made by large companies.)
+Game developers and publishers columns are deleted since firstly, it is not possible to quantify the effect of them only by their names. Also, we hypothesize that the grnral effects of large company are included in our model since there is a tag for independent games, which means games without that tag are made by larger companies.
 
-Furthermore, we will exclude the variables "Playtime in Current Two Weeks" since it may not be meaningful enough for older games, and "Average Playtime Forever" in favor of "Median Playtime Forever" due to potential distortions caused by AFK (Away From Keyboard) gamers. 
+Furthermore, variables related to "Playtime" were deleted since developer cannot get such information when they develop their games. 
 
-To address potential data leakage issues, we will further select features in model fitting part. 
+There are still data leakage in games' tag, we will do further feature selection in model fitting part. 
